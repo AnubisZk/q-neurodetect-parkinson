@@ -4,6 +4,8 @@ All reusable UI helpers, CSS injection, API calls, and render functions.
 Imported by streamlit_app.py – no Streamlit state is held here.
 """
 from __future__ import annotations
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import io
 import requests
 import streamlit as st
@@ -116,7 +118,7 @@ html, body, [class*="css"] {
 
 def fetch_health(base_url: str, timeout: int) -> dict | None:
     try:
-        r = requests.get(f"{base_url}/health", timeout=timeout)
+        r = requests.get(f"{base_url}/health", timeout=timeout, verify=False)
         r.raise_for_status()
         return r.json()
     except Exception:
@@ -147,6 +149,7 @@ def call_predict_all(
             files=files or None,
             params=params,
             timeout=timeout,
+            verify=False
         )
         r.raise_for_status()
         return r.json(), None
@@ -163,7 +166,7 @@ def call_predict_all(
 def fetch_report_bytes(base_url: str, report_url: str) -> bytes | None:
     try:
         full_url = base_url + report_url
-        r = requests.get(full_url, timeout=30)
+        r = requests.get(full_url, timeout=30, verify=False)
         r.raise_for_status()
         return r.content
     except Exception:

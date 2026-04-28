@@ -4,7 +4,7 @@ Q-NeuroDetect Parkinson – Streamlit Frontend  (Phase 2)
 Çalıştırma (proje kökünden):
     streamlit run frontend/streamlit_app.py
 
-Backend must be running at BACKEND_URL (default http://localhost:8000).
+Backend must be running at BACKEND_URL (default https://q-neurodetect-parkinson-production.up.railway.app).
 """
 
 import os
@@ -26,8 +26,8 @@ except ModuleNotFoundError:
     import ui_components as ui             # frontend/ içinden: streamlit run streamlit_app.py
 
 # ── Config ────────────────────────────────────────────────────────────────────
-BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
-TIMEOUT = 60
+BACKEND_URL = "https://q-neurodetect-parkinson-production.up.railway.app"
+TIMEOUT = 30
 
 st.set_page_config(
     page_title="Q-NeuroDetect Parkinson",
